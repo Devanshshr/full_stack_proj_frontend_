@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mytalorzone By Sahiba - Ethnic Fashion Store</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #e91e63;
+            --secondary-color: #ff9800;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-color: #ddd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .top-bar marquee {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        .header {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 2rem;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 1rem;
+            border-radius: 25px;
+            border: 2px solid var(--border-color);
+            background: var(--light-gray);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+        }
+
+        .search-bar i {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-icons i {
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .nav-icons i:hover {
+            color: var(--primary-color);
+        }
+
+        /* Category Menu */
+        .category-menu {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            padding: 1rem;
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .category-menu a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .category-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .category-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .category-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Banner */
+        .banner {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('/api/placeholder/100/100') repeat;
+            opacity: 0.1;
+            animation: bannerPattern 20s linear infinite;
+        }
+
+        @keyframes bannerPattern {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Product Categories Grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .category-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .category-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.95);
+            text-align: center;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover .category-info {
+            transform: translateY(-10px);
+        }
+
+        .category-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .shop-now-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-color);
+        }
+
+        .shop-now-btn:hover {
+            background: transparent;
+            color: var(--primary-color);
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+            background: var(--light-gray);
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .newsletter h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 0.8rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-color);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-column h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+
+        /* Cart Badge */
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .category-grid {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .logo {
+                order: 1;
+                flex: 1;
+            }
+
+            .nav-icons {
+                order: 2;
+            }
+
+            .search-bar {
+                order: 3;
+                margin: 1rem 0;
+                max-width: 100%;
+                flex-basis: 100%;
+            }
+
+            .category-menu {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding: 1rem 0.5rem;
+                gap: 1.5rem;
+            }
+
+            .category-menu::-webkit-scrollbar {
+                height: 3px;
+            }
+
+            .category-menu::-webkit-scrollbar-thumb {
+                background: var(--primary-color);
+            }
+
+            .banner h2 {
+                font-size: 2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .category-card img {
+                height: 350px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Footer Styling */
+footer {
+    background: var(--text-color);
+    color: white;
+    padding: 4rem 2rem 2rem;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.footer-column h4 {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.footer-column ul {
+    list-style: none;
+}
+
+.footer-column ul li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-column ul li a {
+    color: #ddd;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: var(--secondary-color);
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 1rem;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 0.8rem;
+    border: 2px solid var(--border-color);
+    border-radius: 25px;
+    font-size: 1rem;
+}
+
+.newsletter-form button {
+    padding: 0.8rem 2rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.newsletter-form button:hover {
+    background: var(--secondary-color);
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.9rem;
+    color: #ddd;
+}
+
+/* Responsive Footer Adjustments */
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+}
+.search-bar{
+margin: 2rem auto;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .search-bar input {
+            padding: 0.8rem;
+            width: 300px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            padding: 0.8rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Dynamic message styles */
+        .dynamic-message {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        /* Search results styles */
+        .search-results {
+            margin: 2rem auto;
+            text-align: center;
+        }
+
+        .search-results p {
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        .search-results .product-card {
+            margin: 1rem auto;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            width: 80%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <marquee>
+            Free Shipping on Orders Above ₹999 | Easy Returns | COD Available
+        </marquee>
+    </div>
+
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo">Mytalorzone By Sahiba</a>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for kurtas, sarees, lehengas...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="nav-icons">
+                <i class="fas fa-user" title="My Account"></i>
+                <i class="fas fa-heart" title="Wishlist"></i>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart" title="Cart"></i>
+                    <span class="cart-badge">0</span>
+                </div>
+            </div>
+        </div>
+
+        <nav class="category-menu">
+            <a href="#">New Arrivals</a>
+            <a href="#">Ethnic Wear</a>
+            <a href="#">Best Sellers</a>
+            <a href="#">Dresses</a>
+            <a href="#">Co-ords & Jumpsuits</a>
+            <a href="#">Tops & Shirts</a>
+            <a href="#">Under 1499</a>
+        </nav>
+    </header>
+
+    <div class="banner">
+        <h2>SHOP BY CATEGORY</h2>
+        <p>Choose Your Favourite Wedding Charm</p>
+    </div>
+
+    <main class="category-grid">
+        <div class="category-card">
+            <img src="https://womenplusindia.com/cdn/shop/products/3700_I.jpg?v=1672567852&width=5000" alt="Suit Sets">
+            <div class="category-info">
+                <h3>Suit Sets</h3>
+                <a href="#" class="shop-now-btn">SHOP NOW</a>
+            </div>
+        </div>
+        <div class="category-card">
+            <img src="https://womenplusindia.com/cdn/shop/products/3689_I.jpg?v=1672565877&width=1062" alt="Kurta Sets">
+            <div class="category-info">
+                <h3>Kurti Sets</h3>
+                <a href="#" class="shop-now-btn">SHOP NOW</a>
+            </div>
+        </div>
+        <div class="category-card">
+            <img src="https://womenplusindia.com/cdn/shop/files/3965_I.jpg?v=1700232067&width=925" alt="Silk Sets">
+            <div class="category-info">
+                <h3>Silk Sets</h3>
+                <a href="#" class="shop-now-btn">SHOP NOW</a>
+            </div>
+        </div>
+    </main>
+        <footer>
+            <div class="footer-grid">
+                <!-- About Section -->
+                <div class="footer-column">
+                    <h4>About Us</h4>
+                    <p>Welcome to Mytalorzone By Sahiba, your one-stop ethnic fashion destination. Explore our curated collection of exquisite kurtas, lehengas, sarees, and more!</p>
+                </div>
+        
+                <!-- Quick Links -->
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Ethnic Wear</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+        
+                <!-- Customer Service -->
+                <div class="footer-column">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Track Order</a></li>
+                    </ul>
+                </div>
+        
+                <!-- Follow Us -->
+                <div class="footer-column">
+                    <h4>Follow Us</h4>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-pinterest"></i> Pinterest</a></li>
+                    </ul>
+                </div>
+        
+                <!-- Newsletter -->
+                <div class="footer-column">
+                    <h4>Newsletter</h4>
+                    <p>Stay updated with our latest collections and exclusive offers.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        
+            <!-- Copyright Section -->
+            <div class="copyright">
+                &copy; 2024 Mytalorzone By Sahiba. All Rights Reserved. Designed with ❤️ by Sahiba.
+            </div>
+
+        </footer>
+   
+        <script>
+            // Products Data
+            const products = [
+                { name: "Suit Sets", description: "Beautiful suit sets perfect for every occasion." },
+                { name: "Kurti Sets", description: "Elegant kurti sets with traditional designs." },
+                { name: "Silk Sets", description: "Premium silk sets for a luxurious look." },
+                { name: "Lehengas", description: "Gorgeous lehengas for weddings and celebrations." }
+            ];
+    
+            // Search Functionality
+            function performSearch() {
+                const searchInput = document.getElementById('search-input').value.toLowerCase();
+                const searchResults = document.getElementById('search-results');
+                searchResults.innerHTML = ''; // Clear previous results
+    
+                // Filter products
+                const filteredProducts = products.filter(product =>
+                    product.name.toLowerCase().includes(searchInput)
+                );
+    
+                if (filteredProducts.length > 0) {
+                    filteredProducts.forEach(product => {
+                        const productCard = document.createElement('div');
+                        productCard.classList.add('product-card');
+                        productCard.innerHTML = `
+                            <h3>${product.name}</h3>
+                            <p>${product.description}</p>
+                        `;
+                        searchResults.appendChild(productCard);
+                    });
+                } else {
+                    searchResults.innerHTML = '<p>No products found. Try searching for something else!</p>';
+                }
+            }
+    
+            // Dynamic Message Functionality
+            const dynamicMessage = document.getElementById('dynamic-message');
+            const messages = [
+                "🎉 New collection just launched!",
+                "🛍️ Limited-time discounts available now!",
+                "👗 Shop the latest ethnic wear trends!"
+            ];
+    
+            let currentMessageIndex = 0;
+    
+            function updateDynamicMessage() {
+                dynamicMessage.textContent = messages[currentMessageIndex];
+                currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+            }
+    
+            // Rotate dynamic messages every 5 seconds
+            setInterval(updateDynamicMessage, 5000);
+            updateDynamicMessage(); // Show the first message immediately
+        </script>
+    </body>
+</html>
+    
